@@ -7,13 +7,13 @@ async function savecontact(req,res){
     const message=(req.body.message||"").trim();
 
     if(!name||!email||!message){
-      return res.status(400).json({msg:"please fill all fields"});
+      return res.status(400).json({msg:"sab fields bharo"});
     }
 
     const saved=await contactmessage.create({ name, email, message });
-    res.status(201).json({msg:"message saved", id:saved._id});
+    res.status(201).json({msg:"save ho gaya", id:saved._id});
   } catch (err) {
-    res.status(500).json({msg:"could not save message"});
+    res.status(500).json({msg:"save nahi hua"});
   }
 }
 

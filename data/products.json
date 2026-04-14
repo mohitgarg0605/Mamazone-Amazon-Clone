@@ -1,47 +1,27 @@
 [
   {
-    "name": "wireless headphones",
-    "price": 2999,
-    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+    "name": "notebook",
+    "price": 50,
+    "image": "https://via.placeholder.com/400x240?text=Notebook"
   },
   {
-    "name": "smart watch",
-    "price": 4999,
-    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80"
+    "name": "water bottle",
+    "price": 120,
+    "image": "https://via.placeholder.com/400x240?text=Water+Bottle"
   },
   {
-    "name": "keyboard",
-    "price": 2499,
-    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80"
+    "name": "pen pack",
+    "price": 30,
+    "image": "https://via.placeholder.com/400x240?text=Pen+Pack"
   },
   {
-    "name": "laptop stand",
-    "price": 999,
-    "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=800&q=80"
+    "name": "school bag",
+    "price": 700,
+    "image": "https://via.placeholder.com/400x240?text=School+Bag"
   },
   {
-    "name": "usb c cable",
-    "price": 399,
-    "image": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    "name": "bluetooth speaker",
-    "price": 1899,
-    "image": "https://images.unsplash.com/photo-1589003077984-894e133dabab?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    "name": "office chair",
-    "price": 6499,
-    "image": "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    "name": "webcam",
-    "price": 2199,
-    "image": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    "name": "phone holder",
-    "price": 549,
-    "image": "https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=800&q=80"
+    "name": "mobile stand",
+    "price": 180,
+    "image": "https://via.placeholder.com/400x240?text=Mobile+Stand"
   }
 ]

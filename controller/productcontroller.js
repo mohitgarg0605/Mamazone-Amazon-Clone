@@ -1,7 +1,12 @@
 const product=require("../model/product");
 const sampleproducts=require("../data/products.json");
+const mongoose=require("mongoose");
 
 async function getproducts(req,res){
+	if(mongoose.connection.readyState!==1){
+		return res.json(sampleproducts);
+	}
+
 	try{
 		const list=await product.find();
 		if(Array.isArray(list)&&list.length>0){
@@ -14,15 +19,16 @@ async function getproducts(req,res){
 }
 
 async function seedproducts(req,res){
+	if(mongoose.connection.readyState!==1){
+		return res.status(503).json({msg:"db ready nahi hai"});
+	}
+
 	try{
-		const count=await product.countDocuments();
-		if(count===0){
-			await product.insertMany(sampleproducts);
-			return res.json({msg:"sample products inserted"});
-		}
-		res.json({msg:"products already exist"});
+		await product.deleteMany({});
+		await product.insertMany(sampleproducts);
+		res.json({msg:"products add ho gaye"});
 	}catch(err){
-		res.status(503).json({msg:"mongo not ready, product seed skipped"});
+		res.status(503).json({msg:"db ready nahi hai"});
 	}
 }
 

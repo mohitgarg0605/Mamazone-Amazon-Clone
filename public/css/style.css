@@ -11,7 +11,7 @@ body {
   scroll-behavior: smooth;
 }
 
-.cart-box {
+.mycarttag {
   font-weight: 600;
   padding: 0.3rem 0.55rem;
   border: 1px solid #ddd;
@@ -25,25 +25,19 @@ body {
   padding: 0 1rem;
 }
 
-.page-header {
+.topbox {
   background: #fff;
   border-bottom: 1px solid #ddd;
 }
 
-.home-hero {
+.box1 {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
 }
 
-.home-hero-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-.home-mini-card {
+.box2 {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -51,25 +45,25 @@ body {
   text-align: center;
 }
 
-.home-mini-card img {
+.box2 img {
   height: 160px;
   object-fit: cover;
   border-radius: 6px;
 }
 
-.fade-in-up {
+.showup {
   animation: fadeup 0.6s ease both;
 }
 
-.delay-1 {
+.d1 {
   animation-delay: 0.1s;
 }
 
-.delay-2 {
+.d2 {
   animation-delay: 0.2s;
 }
 
-.delay-3 {
+.d3 {
   animation-delay: 0.3s;
 }
 
@@ -84,20 +78,20 @@ body {
   }
 }
 
-.footer-basic {
+.fbox {
   color: #555;
 }
 
-.footer-basic a {
+.fbox a {
   color: #444;
   text-decoration: none;
 }
 
-.footer-basic a:hover {
+.fbox a:hover {
   text-decoration: underline;
 }
 
-.cart-section {
+.cart-big {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -108,13 +102,13 @@ body {
   padding-left: 1.2rem;
 }
 
-.product-grid {
+.pgrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0.75rem;
 }
 
-.product-card {
+.pcard {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -122,34 +116,34 @@ body {
   animation: fadeup 0.5s ease both;
 }
 
-.product-grid .product-card:nth-child(1) { animation-delay: 0.05s; }
-.product-grid .product-card:nth-child(2) { animation-delay: 0.1s; }
-.product-grid .product-card:nth-child(3) { animation-delay: 0.15s; }
-.product-grid .product-card:nth-child(4) { animation-delay: 0.2s; }
-.product-grid .product-card:nth-child(5) { animation-delay: 0.25s; }
-.product-grid .product-card:nth-child(6) { animation-delay: 0.3s; }
+.pgrid .pcard:nth-child(1) { animation-delay: 0.05s; }
+.pgrid .pcard:nth-child(2) { animation-delay: 0.1s; }
+.pgrid .pcard:nth-child(3) { animation-delay: 0.15s; }
+.pgrid .pcard:nth-child(4) { animation-delay: 0.2s; }
+.pgrid .pcard:nth-child(5) { animation-delay: 0.25s; }
+.pgrid .pcard:nth-child(6) { animation-delay: 0.3s; }
 
-.product-card img {
+.pcard img {
   width: 100%;
   height: 150px;
   object-fit: cover;
 }
 
-.product-info {
+.pinfo {
   padding: 0.75rem;
 }
 
-.product-info h3 {
+.pinfo h3 {
   font-size: 1rem;
   margin-bottom: 0.45rem;
 }
 
-.product-info p {
+.pinfo p {
   font-weight: 600;
   margin-bottom: 0.6rem;
 }
 
-.add-btn {
+.btn1 {
   width: 100%;
   border: 1px solid yellow;
   padding: 0.5rem;
@@ -161,7 +155,7 @@ body {
   transition: background 0.2s;
 }
 
-.add-btn:hover {
+.btn1:hover {
   background: yellow;
 }
 

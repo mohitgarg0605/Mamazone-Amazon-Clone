@@ -1,139 +1,108 @@
-const productbox=document.getElementById("productgrid");
-const cartcount2=document.getElementById("cartcount2");
-const cartlist=document.getElementById("cartlist");
-const contactform=document.getElementById("contactform");
-const contactstatus=document.getElementById("contactstatus");
+const box=document.getElementById("productgrid");
+const c2=document.getElementById("cartcount2");
+const list=document.getElementById("cartlist");
+const form=document.getElementById("contactform");
+const status=document.getElementById("contactstatus");
 
-let cart=[];
+let arr=[];
 
-function fallbackimg(name) {
-  const safe=name||"product";
-  const svg=`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'>
-    <rect width='100%' height='100%' fill='#ececec'/>
-    <text x='50%' y='45%' text-anchor='middle' dominant-baseline='middle' fill='#333' font-size='36' font-family='Arial'>image not available</text>
-    <text x='50%' y='60%' text-anchor='middle' dominant-baseline='middle' fill='#222' font-size='34' font-family='Arial'>${safe}</text>
-  </svg>`;
-  return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
-}
+function upcart(){
+  const c1=document.getElementById("cartcount");
 
-function money(p) {
-  return "Rs. "+p;
-}
+  if(c1){
+    c1.innerText=arr.length;
+  }
 
-function titlecase(text) {
-  if(!text) return "";
-  return text.replace(/\w\S*/g, function (w) {
-    return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();
-  });
-}
+  if(c2){
+    c2.innerText=arr.length;
+  }
 
-function updatecart() {
-  const cartcount=document.getElementById("cartcount");
-  if(cartcount) cartcount.innerText=cart.length;
-  if(cartcount2) cartcount2.innerText=cart.length;
+  if(!list){
+    return;
+  }
 
-  if(!cartlist) return;
-  cartlist.innerHTML="";
-  for (let i=0; i<cart.length; i++) {
+  list.innerHTML="";
+
+  for(let i=0;i<arr.length;i++){
     const li=document.createElement("li");
-    li.innerText=titlecase(cart[i].name)+" - "+money(cart[i].price);
-    cartlist.appendChild(li);
+    li.innerText=arr[i].name+" - Rs."+arr[i].price;
+    list.appendChild(li);
   }
 }
 
-function addtocart(item) {
-  cart.push(item);
-  updatecart();
+function add(item){
+  arr.push(item);
+  upcart();
 }
 
-function createproductcard(item) {
-  const onecard=document.createElement("div");
-  onecard.className="product-card";
+function show(data){
+  if(!box){
+    return;
+  }
 
-  const imgsrc=item.image||fallbackimg(item.name);
+  box.innerHTML="";
 
-  onecard.innerHTML = `
-    <img src="${imgsrc}" alt="${item.name}">
-    <div class="product-info">
-      <h3>${titlecase(item.name)}</h3>
-      <p>${money(item.price)}</p>
-      <button class="add-btn">Add to Cart</button>
-    </div>
-  `;
+  for(let i=0;i<data.length;i++){
+    const item=data[i];
+    const card=document.createElement("div");
+    card.className="pcard";
 
-  const img=onecard.querySelector("img");
-  img.addEventListener("error", function () {
-    img.src=fallbackimg(item.name);
-  });
+    card.innerHTML=`
+      <img src="${item.image}" alt="${item.name}">
+      <div class="pinfo">
+        <h3>${item.name}</h3>
+        <p>Rs. ${item.price}</p>
+        <button class="btn1">Add to Cart</button>
+      </div>
+    `;
 
-  const btn=onecard.querySelector(".add-btn");
-  btn.addEventListener("click", function () {
-    addtocart(item);
-  });
+    const btn=card.querySelector(".btn1");
+    btn.addEventListener("click",function(){
+      add(item);
+    });
 
-  return onecard;
-}
-
-function showproducts(arr) {
-  if(!productbox) return;
-  productbox.innerHTML="";
-
-  for (let i=0; i<arr.length; i++) {
-    const card=createproductcard(arr[i]);
-    productbox.appendChild(card);
+    box.appendChild(card);
   }
 }
 
-async function loadproducts() {
-  if(!productbox) return;
-  let shareddata=[];
-
-  try {
-    const shared=await fetch("/data/products.json");
-    shareddata=await shared.json();
-
-    if (Array.isArray(shareddata)&&shareddata.length>0) {
-      showproducts(shareddata);
-    }
-  } catch (e) {
-    console.log("shared data load failed");
+async function load(){
+  if(!box){
+    return;
   }
 
-  try {
-    const ctrl=new AbortController();
-    const timeoutid=setTimeout(function () {
-      ctrl.abort();
-    }, 1500);
+  try{
+    const ctl=new AbortController();
+    const timeoutId=setTimeout(function(){
+      ctl.abort();
+    },3000);
 
-    const res=await fetch("/api/products", { signal: ctrl.signal });
-    clearTimeout(timeoutid);
-
+    const res=await fetch("/api/products",{signal:ctl.signal});
+    clearTimeout(timeoutId);
     const data=await res.json();
-    if (Array.isArray(data)&&data.length>0) {
-      showproducts(data);
-    } else if (Array.isArray(shareddata)&&shareddata.length>0) {
-      showproducts(shareddata);
+
+    if(Array.isArray(data)&&data.length>0){
+      show(data);
+      return;
     }
-  } catch (e) {
-    if (Array.isArray(shareddata)&&shareddata.length>0) {
-      showproducts(shareddata);
-    }
+  }catch(err){
+    console.log("api failed, local chalega");
+  }
+
+  try{
+    const res2=await fetch("/data/products.json");
+    const data2=await res2.json();
+    show(data2);
+  }catch(err){
+    console.log("local data bhi nahi mila");
   }
 }
 
-async function savecontactmessage(payload) {
-  const res=await fetch("/api/contact", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  return res;
-}
+function setform(){
+  if(!form){
+    return;
+  }
 
-function setupcontactform() {
-  if(!contactform) return;
-
-  contactform.addEventListener("submit", async function (e) {
+  form.addEventListener("submit",async function(e){
     e.preventDefault();
 
     const name=(document.getElementById("contactname")?.value||"").trim();
@@ -141,39 +110,44 @@ function setupcontactform() {
     const message=(document.getElementById("contactmessage")?.value||"").trim();
 
     if(!name||!email||!message){
-      if(contactstatus){
-        contactstatus.innerText="please fill all fields";
-        contactstatus.style.color="#b02a37";
+      if(status){
+        status.innerText="sab fields bharo";
+        status.style.color="#b02a37";
       }
       return;
     }
 
-    if(contactstatus){
-      contactstatus.innerText="saving message...";
-      contactstatus.style.color="#333";
+    if(status){
+      status.innerText="sending...";
+      status.style.color="#333";
     }
 
-    try {
-      const res=await savecontactmessage({ name, email, message });
+    try{
+      const res=await fetch("/api/contact",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({name,email,message}),
+      });
+
       const data=await res.json();
 
       if(!res.ok){
-        throw new Error(data.msg||"submit failed");
+        throw new Error(data.msg||"kuch galat ho gaya");
       }
 
-      contactform.reset();
-      if(contactstatus){
-        contactstatus.innerText="message saved";
-        contactstatus.style.color="#0f5132";
+      form.reset();
+      if(status){
+        status.innerText="message bhej diya";
+        status.style.color="#0f5132";
       }
-    } catch (err) {
-      if(contactstatus){
-        contactstatus.innerText=err.message||"could not save message";
-        contactstatus.style.color="#b02a37";
+    }catch(err){
+      if(status){
+        status.innerText=err.message||"message nahi gaya";
+        status.style.color="#b02a37";
       }
     }
   });
 }
 
-loadproducts();
-setupcontactform();
+load();
+setform();

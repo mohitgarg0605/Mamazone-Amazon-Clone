@@ -1,10 +1,12 @@
 # Mamazon MVC
 
-Simple Node.js, Express, and MongoDB project with MVC structure.
+This is my simple full stack practice project.
+
+Tech used: Node.js, Express, MongoDB, HTML, CSS, JS.
 
 ## MongoDB Setup
 
-1. Install MongoDB locally or use MongoDB Atlas.
+1. Install MongoDB locally or use Atlas.
 2. Create a `.env` file in the project root.
 3. Add your connection string:
 
@@ -15,15 +17,15 @@ Simple Node.js, Express, and MongoDB project with MVC structure.
 
 ### MongoDB Atlas Setup
 
-1. Go to Atlas and open your cluster.
+1. Open your cluster in Atlas.
 2. In `Database Access`, create a database user.
 3. In `Network Access`, allow your current IP address.
-4. For quick testing, you can temporarily allow `0.0.0.0/0`.
+4. For testing, you can allow `0.0.0.0/0` temporarily.
 5. Put your Atlas URI in `.env`:
 
    `MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/mamazon?retryWrites=true&w=majority&appName=Cluster0`
 
-6. Restart the app and check terminal log for `mongo connected`.
+6. Restart the app and check `mongo connected` in terminal.
 
 ## Run
 
@@ -40,7 +42,7 @@ Open this in the browser or use Postman after the server starts:
 POST /api/products/seed
 ```
 
-This inserts the sample products from `data/products.json` into MongoDB when the collection is empty.
+This adds sample products from `data/products.json` to MongoDB.
 
 ## Contact Messages
 
